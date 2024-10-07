@@ -1,82 +1,86 @@
-.home-section {
-  padding: 20px;
-  background-color: #f4f4f4;
-}
+import {Component} from 'react'
+import Loader from 'react-loader-spinner'
+import Header from '../Header'
+import CourseItem from '../CourseItem'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+import './index.css'
 
-.courses-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-}
+class CourseList extends Component {
+  state = {isLoading: true, coursesData: [], hasError: false}
 
-.main-heading {
-  font-size: 2.5rem;
-  color: #333;
-  margin-bottom: 30px;
-}
-
-.courses-items-list {
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-.courses-items-list li {
-  flex: 0 1 calc(50% - 20px);
-  max-width: calc(50% - 20px);
-}
-
-.loading {
-  display: flex;
-  justify-content: center;
-}
-
-.retry-button {
-  color: #fff;
-  background-color: #4656a1;
-  border: none;
-  padding: 12px;
-  border-radius: 6px;
-}
-
-@media (max-width: 1024px) {
-  .main-heading {
-    font-size: 2rem;
-    margin-bottom: 20px;
+  componentDidMount() {
+    this.getCoursesData()
   }
 
-  .courses-items-list li {
-    flex: 0 1 calc(50% - 20px);
+  getCoursesData = async () => {
+    try {
+      const response = await fetch('https://apis.ccbp.in/te/courses')
+      if (!response.ok) {
+        throw new Error('Failed to fetch courses')
+      }
+      const data = await response.json()
+      const updatedData = data.courses.map(eachItem => ({
+        id: eachItem.id,
+        name: eachItem.name,
+        logoUrl: eachItem.logo_url,
+      }))
+      this.setState({
+        coursesData: updatedData,
+        isLoading: false,
+        hasError: false,
+      })
+    } catch (error) {
+      console.error(error)
+      this.setState({isLoading: false, hasError: true})
+    }
+  }
+
+  handleRetry = () => {
+    this.setState({isLoading: true, hasError: false}, this.getCoursesData)
+  }
+
+  renderFailureView = () => (
+    <div className="failure-view">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/tech-era/failure-img.png"
+        alt="failure view"
+        className="failure-image"
+      />
+      <h1 className="failure-heading">Oops! Something Went Wrong</h1>
+      <p>We cannot seem to find the page you are looking for</p>
+      <button type="button" className="retry-button" onClick={this.handleRetry}>
+        Retry
+      </button>
+    </div>
+  )
+
+  render() {
+    const {coursesData, isLoading, hasError} = this.state
+
+    return (
+      <div className="home-section">
+        <Header />
+        {isLoading && (
+          <div className="loading" data-testid="loader">
+            <Loader type="ThreeDots" color="#0284c7" height={80} width={80} />
+          </div>
+        )}
+
+        {hasError && this.renderFailureView()}
+
+        {!isLoading && !hasError && (
+          <div className="courses-section">
+            <h1 className="main-heading">Courses</h1>
+            <ul className="courses-items-list">
+              {coursesData.map(item => (
+                <CourseItem courseData={item} key={item.id} />
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    )
   }
 }
 
-@media (max-width: 768px) {
-  .main-heading {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-  }
-
-  .courses-items-list {
-    flex-direction: row;
-  }
-
-  .courses-items-list li {
-    flex: 0 1 calc(50% - 20px);
-    max-width: calc(50% - 20px);
-  }
-}
-
-@media (max-width: 480px) {
-  .main-heading {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-
-  .courses-items-list li {
-    flex: 0 1 calc(50% - 20px);
-    max-width: calc(50% - 20px);
-  }
-}
+export default CourseList
