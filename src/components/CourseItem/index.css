@@ -1,30 +1,46 @@
 .course-item {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  width: 200px;
-  text-align: center;
-  transition: transform 0.2s;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
+    transition: transform 0.3s; /* Smooth scaling effect on hover */
 }
 
 .course-item:hover {
-  transform: scale(1.05);
+    transform: scale(1.05); /* Slightly scale the item on hover */
 }
 
-.item-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
+.course-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.item-title {
-  font-size: 1.5rem;
-  color: #555;
-  margin-top: 10px;
-  font-weight: bold;
+.course-description {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
 }
 
-.link-element {
-  text-decoration: none;
+.course-button {
+    background-color: #db1c48; /* Button background color */
+    color: #ffffff; /* Button text color */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.course-button:hover {
+    background-color: #c9133e; /* Darker shade on hover */
+}
+
+@media (min-width: 768px) {
+    .course-item {
+        width: calc(50% - 20px);
+    }
 }
