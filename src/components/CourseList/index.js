@@ -69,7 +69,7 @@ class CourseList extends Component {
 
         {!isLoading && !hasError && (
           <div className="courses-section">
-            <h1 className="main-heading">Courses</h1>
+            <h1 className="main-heading">Web Technologies</h1>
             <ul className="courses-items-list">
               {coursesData.map(item => (
                 <CourseItem courseData={item} key={item.id} />
