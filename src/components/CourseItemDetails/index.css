@@ -96,6 +96,7 @@
     padding: 10px;
     box-shadow: none;
     background-color: #fff;
+    height: 100vh;
   }
 
   .course-heading {
