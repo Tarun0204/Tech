@@ -94,7 +94,6 @@ class CourseItemDetails extends Component {
   }
 }
 
-// No need for withRouter, directly use useParams
 const CourseItemDetailsWithRouter = (props) => {
   const params = useParams()
   return <CourseItemDetails {...props} params={params} />
