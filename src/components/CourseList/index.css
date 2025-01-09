@@ -3,6 +3,12 @@
   background-color: #f4f4f4;
 }
 
+@media screen and (min-width: 768px) {
+  .home-section {
+     height: 90vh;
+}
+}
+
 .courses-section {
   max-width: 1200px;
   margin: 0 auto;
