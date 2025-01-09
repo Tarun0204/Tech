@@ -6,6 +6,12 @@
   height: 85vh;
 }
 
+@media screen and (max-width: 767px) {
+  .item-details { 
+    height: 100vh;
+  }
+}
+
 .course-details {
   display: flex;
   align-items: center;
