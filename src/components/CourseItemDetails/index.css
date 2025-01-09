@@ -89,7 +89,7 @@
 @media (max-width: 480px) {
   .item-details {
     padding: 10px;
-    height: 100vh;
+    height: auto;
   }
 
   .course-details {
