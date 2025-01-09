@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import Header from '../Header'
-import { useParams } from 'react-router-dom' // Removed withRouter import
+import { useParams } from 'react-router-dom'
 import './index.css'
 
 class CourseItemDetails extends Component {
